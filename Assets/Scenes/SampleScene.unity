@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 68f186f455d94a941971bfb534653c5d, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.025373347, g: 0.03196605, b: 0.31728995, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -931,6 +931,7 @@ GameObject:
   - component: {fileID: 481457417}
   - component: {fileID: 481457416}
   - component: {fileID: 481457415}
+  - component: {fileID: 481457418}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1126,7 +1127,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc36a9c2ca8fef048a56fae697f41428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 
   audioSource: {fileID: 481457415}
+  webPost1: {fileID: 481457418}
 --- !u!114 &481457417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1140,6 +1143,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 481457410}
+  moveVal: 0.1
+--- !u!114 &481457418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481457410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 847a2efc0148165449397e3ebc39e155, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &505889497
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3899,7 +3915,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc36a9c2ca8fef048a56fae697f41428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 
   audioSource: {fileID: 2052270710}
+  webPost1: {fileID: 0}
 --- !u!4 &2080422564 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8837121385027994235, guid: df06b7289e59ab249ba3eb8a7f447700, type: 3}

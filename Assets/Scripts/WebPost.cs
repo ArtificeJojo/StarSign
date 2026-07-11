@@ -8,13 +8,19 @@ public class WebPost : MonoBehaviour
 {
     private WebReq webReq;
     private string txt = "Player is going the wrong way";
-    //private string Url;
+    public string Id;
+    private string Url = "http://172.20.10.4:5000/barnum";
     public AudioSource audioSource;
+
+    public WebPost1 webPost1; 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
+        WebPost1.PostReq(Url, txt);
+        Url = AddToURL(Url);
+        Debug.Log(Url);
         audioSource = GetComponent<AudioSource>();
-        StartCoroutine(PostReq("http://172.20.10.4:5000/barnum", txt));
+        StartCoroutine(PostReq(Url, txt));
         //webReq.Start();
     }
 
@@ -37,24 +43,12 @@ public class WebPost : MonoBehaviour
             audioSource.Play();
             Debug.Log("Audio Played");
         }
-        //DownloadHandlerBuffer downloadHandler = new DownloadHandlerBuffer();
-        //AudioClip audioClip = 
-        /*
-        DownloadHandlerAudioClip downloadHandler = new DownloadHandlerAudioClip(url, AudioType.MPEG);
-        request.downloadHandler = downloadHandler;
-        AudioClip audioClip = DownloadHandlerAudioClip.GetContent(request);
-        yield return request.SendWebRequest();
-        if (request.result == UnityWebRequest.Result.Success)
-        {
-            Debug.Log("Audio file was made");
-            if (audioClip != null)
-            {
-                audioSource.clip = audioClip;
-                audioSource.Play();
-                Debug.Log("Audio Played");
-            }
-        }
-        */
-        
+    }
+
+    public static string AddToURL(string url)
+    {
+        string result = url + "/" + WebPost1.id;
+        return result;
     }
 }
+
