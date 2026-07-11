@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    public Transform camTransform;
     public GameObject player;
     public float moveVal = 0.1f;
     // Update is called once per frame
@@ -20,6 +21,9 @@ public class PlayerMove : MonoBehaviour
         
         if(Input.GetKey(KeyCode.D))
             player.transform.Translate(moveVal, 0, 0);
+        
+        Vector3 cameraRotation = camTransform.eulerAngles;
+        player.transform.rotation = Quaternion.Euler(0, cameraRotation.y, 0);
     }
     
 }
