@@ -5,19 +5,17 @@ using UnityEngine.Networking;
 
 public class WebReq : MonoBehaviour
 {
-    //public string Url;
     public AudioSource audioSource;
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        StartCoroutine(GetReq("http://172.20.10.4:5000/"));
+        StartCoroutine(GetReq("http://172.20.10.4:5000/ai"));
     }
     
     IEnumerator GetReq(string url)
     {
-        //using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.MPEG))
-        UnityWebRequest request = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.WAV);
+        UnityWebRequest request = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.MPEG);
         yield return request.SendWebRequest();
         
         if (request.isNetworkError || request.isHttpError)
@@ -32,7 +30,7 @@ public class WebReq : MonoBehaviour
                 audioSource.Play();
                 Debug.Log("Audio Played");
                 /*
-                string save = Path.Combine(Application.dataPath, "audioClip.wav");
+                string save = Path.Combine(Application.dataPath, "audioClip.mp3");
                 File.WriteAllBytes(save, request.downloadHandler.data);
                 Debug.Log("Audio Saved to " + save);
                 */
