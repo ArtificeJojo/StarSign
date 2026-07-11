@@ -1,0 +1,4 @@
+google.genai==2.11.0
+dotenv==0.9.9
+elevenlabs==1.10.0
+flask==3.1.3
