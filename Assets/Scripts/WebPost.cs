@@ -24,9 +24,21 @@ public class WebPost : MonoBehaviour
         form.AddField("prompt", data);
 
         UnityWebRequest request = UnityWebRequest.Post(url, form);
-        yield return request.SendWebRequest();
         Debug.Log("Result: " + request.result);
 
+        request.downloadHandler = new DownloadHandlerAudioClip(url, AudioType.MPEG);
+        yield return request.SendWebRequest();
+        
+        AudioClip audioClip = DownloadHandlerAudioClip.GetContent(request);
+
+        if (audioClip != null)
+        {
+            audioSource.clip = audioClip;
+            audioSource.Play();
+            Debug.Log("Audio Played");
+        }
+        //DownloadHandlerBuffer downloadHandler = new DownloadHandlerBuffer();
+        //AudioClip audioClip = 
         /*
         DownloadHandlerAudioClip downloadHandler = new DownloadHandlerAudioClip(url, AudioType.MPEG);
         request.downloadHandler = downloadHandler;
