@@ -7,14 +7,14 @@ using UnityEngine.Networking;
 public class WebPost : MonoBehaviour
 {
     private WebReq webReq;
-    private string txt = "introduce yourself";
+    private string txt = "Player is going the wrong way";
     //private string Url;
     public AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        StartCoroutine(PostReq("http://172.20.10.4:5000/ai", txt));
+        StartCoroutine(PostReq("http://172.20.10.4:5000/barnum", txt));
         //webReq.Start();
     }
 
