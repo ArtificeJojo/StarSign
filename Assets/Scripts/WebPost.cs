@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -13,7 +12,10 @@ public class WebPost : MonoBehaviour
     private string Url = "https://spool-banshee-rectangle.ngrok-free.dev/barnum";
     public AudioSource audioSource;
 
-    public WebPost1 webPost1; 
+    public WebPost1 webPost1;
+
+    private const float IntervalSeconds = 20f;
+
     // Start is called before the first frame update
     public void Start()
     {
@@ -21,8 +23,20 @@ public class WebPost : MonoBehaviour
         Url = AddToURL(Url);
         Debug.Log(Url);
         audioSource = GetComponent<AudioSource>();
-        StartCoroutine(PostReq(Url, txt));
-        //webReq.Start();
+
+        // Run PostReq immediately, then keep repeating every 20 seconds
+        StartCoroutine(RepeatPostReq(Url, txt, IntervalSeconds));
+    }
+
+    private IEnumerator RepeatPostReq(string url, string data, float interval)
+    {
+        while (true)
+        {
+            // Wait for the request to fully complete before waiting out the interval,
+            // so calls don't overlap/pile up if the request takes a while.
+            yield return StartCoroutine(PostReq(url, data));
+            yield return new WaitForSeconds(interval);
+        }
     }
 
     private IEnumerator PostReq(string url, string data)
@@ -31,11 +45,18 @@ public class WebPost : MonoBehaviour
         form.AddField("prompt", data);
 
         UnityWebRequest request = UnityWebRequest.Post(url, form);
+        request.downloadHandler = new DownloadHandlerAudioClip(url, AudioType.MPEG);
+
+        yield return request.SendWebRequest();
+
         Debug.Log("Result: " + request.result);
 
-        request.downloadHandler = new DownloadHandlerAudioClip(url, AudioType.MPEG);
-        yield return request.SendWebRequest();
-        
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogWarning("Request failed: " + request.error);
+            yield break;
+        }
+
         AudioClip audioClip = DownloadHandlerAudioClip.GetContent(request);
 
         if (audioClip != null)
