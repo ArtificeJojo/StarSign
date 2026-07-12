@@ -6,9 +6,13 @@ import sys
 try:
     from flask import Flask
     from flask import request
+    from flask import session
     import random
+    from waitress import serve
     from werkzeug.middleware.proxy_fix import ProxyFix
     from gemini_data import GeminiData
+    from dotenv import load_dotenv
+    import os
 except ImportError:
     # Auto-installs all requirements
     print("Missing requirements... Auto installing them")
@@ -17,9 +21,14 @@ except ImportError:
     # Try again. If it fails here, it should abort
     from flask import Flask
     from flask import request
+    from waitress import serve
+    from flask import session
     import random
     from werkzeug.middleware.proxy_fix import ProxyFix
     from gemini_data import GeminiData
+    import os
+    from dotenv import load_dotenv
+
 
 
 # Our list of all the connections
@@ -27,14 +36,25 @@ allConnections: dict[int, GeminiData] = {
     
 }
 
+
+
 # All the ids. A set to enforce all of them being unique
 idList = set()
 
 
+load_dotenv()
 app = Flask(__name__)
 app.wsgi_app = ProxyFix(app.wsgi_app)
+app.secret_key = os.getenv("SECRET_KEY")
+# if type(SECRET_KEY) != str:
+#     print("SECRET KEYS MESSED UP")
+#     exit(1)
+# else: 
+#     app.secret_key = SECRET_KEY
 
-
+@app.route("/connection", methods=["GET"])
+def verifyConnection():
+    return "CONNECTION VERIFIED"
 
 """Gets the zodiac signs which is given by the player
 at the beggining of the game"""
@@ -62,6 +82,8 @@ def get_zodiac_sign():
     
     print(f"User with ID {newID} added")
     
+    session["username"] = newID
+    
     return str(newID)
 
 """Requests the server to disconnect the id from the list
@@ -73,6 +95,8 @@ def disconnect_app(id):
     allConnections.pop(id)
     
     idList.remove(id)
+    
+    session.pop("username", None)
     
     return "DISCONNECTED"
 
