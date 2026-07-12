@@ -1,0 +1,9 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "star-signs-web-server"
+version = "1.0.0"
+description = "The web server backend side of the Star Signs game"
+requires-python = ">=3.12.2"
