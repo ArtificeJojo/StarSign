@@ -23,7 +23,6 @@ public class WebPost : MonoBehaviour
 
     private const float IntervalSeconds = 20f;
 
-    // Start is called before the first frame update
     public void Start()
     {
         WebPost1.PostReq(Url, GetRandomPrompt());
@@ -31,7 +30,6 @@ public class WebPost : MonoBehaviour
         Debug.Log(Url);
         audioSource = GetComponent<AudioSource>();
 
-        // Run PostReq immediately, then keep repeating every 20 seconds
         StartCoroutine(RepeatPostReq(Url, IntervalSeconds));
     }
 
@@ -48,8 +46,6 @@ public class WebPost : MonoBehaviour
             string data = GetRandomPrompt();
             Debug.Log("Sending prompt: " + data);
 
-            // Wait for the request to fully complete before waiting out the interval,
-            // so calls don't overlap/pile up if the request takes a while.
             yield return StartCoroutine(PostReq(url, data));
             yield return new WaitForSeconds(interval);
         }
