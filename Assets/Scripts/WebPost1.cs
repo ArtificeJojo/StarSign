@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +14,7 @@ public class WebPost1 : MonoBehaviour
     // Start is called before the first frame update
     public void Awake()
     {
-        StartCoroutine(PostReq("http://172.20.10.4:5000/zodiac", txt));
+        StartCoroutine(PostReq("https://spool-banshee-rectangle.ngrok-free.dev/zodiac", txt));
     }
 
     public static IEnumerator PostReq(string url, string data)

@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -9,7 +10,7 @@ public class WebPost : MonoBehaviour
     private WebReq webReq;
     private string txt = "Player is going the wrong way";
     public string Id;
-    private string Url = "http://172.20.10.4:5000/barnum";
+    private string Url = "https://spool-banshee-rectangle.ngrok-free.dev/barnum";
     public AudioSource audioSource;
 
     public WebPost1 webPost1; 
@@ -51,4 +52,3 @@ public class WebPost : MonoBehaviour
         return result;
     }
 }
-
