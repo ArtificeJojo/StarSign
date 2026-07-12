@@ -7,7 +7,14 @@ using UnityEngine.Networking;
 public class WebPost : MonoBehaviour
 {
     private WebReq webReq;
-    private string txt = "Player is going the wrong way";
+
+    private string[] prompts = new string[]
+    {
+        "Player is going the wrong way",
+        "Player is idle",
+        "Player hit a wall"
+    };
+
     public string Id;
     private string Url = "https://spool-banshee-rectangle.ngrok-free.dev/barnum";
     public AudioSource audioSource;
@@ -16,24 +23,29 @@ public class WebPost : MonoBehaviour
 
     private const float IntervalSeconds = 20f;
 
-    // Start is called before the first frame update
     public void Start()
     {
-        WebPost1.PostReq(Url, txt);
+        WebPost1.PostReq(Url, GetRandomPrompt());
         Url = AddToURL(Url);
         Debug.Log(Url);
         audioSource = GetComponent<AudioSource>();
 
-        // Run PostReq immediately, then keep repeating every 20 seconds
-        StartCoroutine(RepeatPostReq(Url, txt, IntervalSeconds));
+        StartCoroutine(RepeatPostReq(Url, IntervalSeconds));
     }
 
-    private IEnumerator RepeatPostReq(string url, string data, float interval)
+    private string GetRandomPrompt()
+    {
+        int index = Random.Range(0, prompts.Length);
+        return prompts[index];
+    }
+
+    private IEnumerator RepeatPostReq(string url, float interval)
     {
         while (true)
         {
-            // Wait for the request to fully complete before waiting out the interval,
-            // so calls don't overlap/pile up if the request takes a while.
+            string data = GetRandomPrompt();
+            Debug.Log("Sending prompt: " + data);
+
             yield return StartCoroutine(PostReq(url, data));
             yield return new WaitForSeconds(interval);
         }
