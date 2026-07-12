@@ -1,0 +1,5 @@
+pyproject.toml
+star_signs_web_server.egg-info/PKG-INFO
+star_signs_web_server.egg-info/SOURCES.txt
+star_signs_web_server.egg-info/dependency_links.txt
+star_signs_web_server.egg-info/top_level.txt
