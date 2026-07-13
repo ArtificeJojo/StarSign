@@ -1,4 +1,4 @@
-# Star Signs
+# Star Sign
 
 A 3D-game Zodiac Sign maze game which includes a robot named Barnum powered by Gemini
 which covers
